@@ -20,9 +20,19 @@ app.get("/", function (req, res) {
 
 
 // your first API endpoint... 
-app.get("/api/:dateString?",	 (req, res) =>{
-	let	dateString	=	req.params.dateString
+app.get("/api/whoami",	(req, res)	=>{
+	var languages	=	req.get('Accept-Language');
+	console.log(req.app.engine)
+	res.send({ipaddress: req.ip,
+	language: languages,
+	software: req.get('User-Agent')})
+	console.log()
+})
 
+
+app.get("/api/:dateString?",	 (req, res) =>{
+
+		let	dateString	=	req.params.dateString
 	let	date;
 	if(!dateString){date	=	new	Date()}
 	else{
@@ -36,6 +46,8 @@ app.get("/api/:dateString?",	 (req, res) =>{
 
 
 });
+
+
 
 app.listen(process.env.PORT	||	3000)
 // listen for requests :)
